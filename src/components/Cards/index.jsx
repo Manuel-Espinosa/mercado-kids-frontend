@@ -1,10 +1,11 @@
 import React from "react";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import 'bulma/css/bulma.min.css';
-import './style.css'
+import "bulma/css/bulma.min.css";
+import "./style.css";
 
-const ProductCards = ({ products }) => {
+const ProductCards = ({ products, addToCart }) => {
+
   return (
     <div className="columns is-multiline">
       {products.map((product) => (
@@ -14,8 +15,7 @@ const ProductCards = ({ products }) => {
               <Carousel showThumbs={false}>
                 {product.images.map((image, index) => (
                   <div key={index}>
-                  <img src={image} alt={product.name} />
-
+                    <img src={image} alt={product.name} />
                   </div>
                 ))}
               </Carousel>
@@ -27,7 +27,12 @@ const ProductCards = ({ products }) => {
                 <p>{product.description}</p>
                 <div className="price-button-container">
                   <p className="has-text-weight-bold">${product.price}</p>
-                  <button className="button is-success">Lo quiero!</button>
+                  <button
+                    className="button is-success"
+                    onClick={() => addToCart(product)}
+                  >
+                    Lo quiero!
+                  </button>
                 </div>
               </div>
             </div>

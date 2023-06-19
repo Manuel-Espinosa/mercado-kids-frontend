@@ -1,15 +1,22 @@
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Layout from "../../layout";
 import ProductCards from "../../components/Cards";
-import { fetchProducts } from "../../utils/fetchProducts";
 import Panel from "../../components/Panel";
-
-// Import necessary dependencies
+import { fetchProducts } from "../../utils/fetchProducts";
+import useCart from "../../hooks/useCart"
 
 const Home = () => {
-  const [products, setProducts] = React.useState([]);
+  const [cart, setCart] = useCart()
+  const [products, setProducts] = useState([])
 
-  React.useEffect(() => {
+
+  const addToCart = useCallback((product) => {
+    setCart((currentCart) => currentCart.concat(product))
+  }, [setProducts]);
+
+  
+
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await fetchProducts();
@@ -24,10 +31,11 @@ const Home = () => {
 
   return (
     <Layout>
-      <Panel />
-      <ProductCards products={products} />
+    <Panel/>
+      <ProductCards products={products} addToCart={addToCart}/>
     </Layout>
   );
 };
 
 export default Home;
+

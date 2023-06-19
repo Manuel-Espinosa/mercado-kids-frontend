@@ -1,15 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import {Link} from 'react-router-dom'
 import "bulma/css/bulma.css";
 import Cart from "../Cart";
+import useCart from "../../hooks/useCart";
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [products] = useCart()
+  const cartItemCount=products.length;
+
 
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
   };
-
-  const itemCount = 5;
 
   return (
     <nav
@@ -18,10 +21,10 @@ const NavBar = () => {
       aria-label="main navigation"
     >
       <div className="navbar-brand">
-        <a className="navbar-item has-text-weight-semibold" href="/">
+        <Link className="navbar-item has-text-weight-semibold" to="/">
           Mercado Kids
-        </a>
-        <a
+        </Link>
+        <Link
           role="button"
           className={`navbar-burger ${isMenuOpen ? "is-active" : ""}`}
           aria-label="menu"
@@ -31,29 +34,29 @@ const NavBar = () => {
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
-        </a>
+        </Link>
       </div>
 
       <div className={`navbar-menu ${isMenuOpen ? "is-active" : ""}`}>
         <div className="navbar-start">
-          <a className="navbar-item has-text-weight-semibold" href="/">
+          <Link className="navbar-item has-text-weight-semibold" to="">
             Categorias
-          </a>
-          <a className="navbar-item has-text-weight-semibold" href="/">
+          </Link>
+          <Link className="navbar-item has-text-weight-semibold" to="">
             Ofertas
-          </a>
+          </Link>
         </div>
 
         <div className="navbar-end">
-          <a className="navbar-item has-text-weight-semibold" href="/">
+          <Link className="navbar-item has-text-weight-semibold" to="">
             Perfil
-          </a>
-          <a className="navbar-item has-text-weight-semibold" href="/">
+          </Link>
+          <Link className="navbar-item has-text-weight-semibold" to="">
             Mis Compras
-          </a>
-          <a className="navbar-item has-text-weight-semibold" href="/">
-            <Cart itemCount={itemCount}></Cart>
-          </a>
+          </Link>
+          <Link className="navbar-item has-text-weight-semibold" to="/cart">
+            <Cart itemCount={cartItemCount} />
+          </Link>
           <div className="navbar-item">
             <div className="field has-addons">
               <div className="control">

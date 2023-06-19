@@ -1,9 +1,8 @@
-# Mercado Kids Backend
+# Mercado Kids Frontend
 
 ## Table of Contents
 - [Project Overview](#project-overview)
 - [Installation](#installation)
-- [API Reference](#api-reference)
 - [Contributing](#contributing)
 - [License](#license)
 
