@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from "react";
-import {Link} from 'react-router-dom'
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "bulma/css/bulma.css";
 import Cart from "../Cart";
+import { ProfileMenu } from "../ProfileMenu";
+import { UserMenu } from "../UserMenu";
 import useCart from "../../hooks/useCart";
-
+import useUser from "../../hooks/useUser";
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [products] = useCart()
-  const cartItemCount=products.length;
-
+  const [products] = useCart();
+  const { user } = useUser();
+  console.log(user)
+  const cartItemCount = products.length;
 
   const handleMenuToggle = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -48,12 +51,7 @@ const NavBar = () => {
         </div>
 
         <div className="navbar-end">
-          <Link className="navbar-item has-text-weight-semibold" to="">
-            Perfil
-          </Link>
-          <Link className="navbar-item has-text-weight-semibold" to="">
-            Mis Compras
-          </Link>
+          {user ? <UserMenu /> : <ProfileMenu />}
           <Link className="navbar-item has-text-weight-semibold" to="/cart">
             <Cart itemCount={cartItemCount} />
           </Link>

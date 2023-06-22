@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "bulma/css/bulma.css";
+import { createUser } from "../../utils/createUser";
 
 const FormComponent = () => {
   const [formData, setFormData] = useState({
@@ -9,48 +10,36 @@ const FormComponent = () => {
       rfc: "",
       phone: "",
       email: "",
-      address: {
-        street: "",
-        neighbourhood: "",
-        zip: "",
-      },
-      child: {
-        name: "",
-        birthdate: "",
-        phone: "",
-        avatar: "",
-      },
+      address: { street: "", neighbourhood: "", zip: "" },
+      child: { name: "", phone: "" },
       password: "",
-      bankaccount: {
-        numbercard: "",
-        expdate: "",
-        ccv: "",
-      },
+      bankaccount: { numbercard: "", expdate: "", ccv: "" },
+      status: "active",
     },
-    deleted_at: null,
   });
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      father: {
-        ...prevFormData.father,
-        [name]: value,
-      },
-    }));
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Here you can perform any necessary actions with the form data
+    createUser(formData);
     console.log(formData);
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      father: {
+        ...prevState.father,
+        [name]: value,
+      },
+    }));
   };
 
   return (
     <div className="columns is-centered">
       <div className="column is-one-third">
         <form onSubmit={handleSubmit}>
+          {/* First column */}
           <div className="field">
             <label className="label">Nombre del Padre:</label>
             <div className="control">
@@ -58,7 +47,6 @@ const FormComponent = () => {
                 className="input is-success"
                 type="text"
                 name="name"
-                value={formData.father.name}
                 onChange={handleChange}
                 required
               />
@@ -72,7 +60,6 @@ const FormComponent = () => {
                 className="input is-success"
                 type="number"
                 name="age"
-                value={formData.father.age}
                 onChange={handleChange}
                 required
               />
@@ -86,7 +73,6 @@ const FormComponent = () => {
                 className="input is-success"
                 type="text"
                 name="rfc"
-                value={formData.father.rfc}
                 onChange={handleChange}
                 required
               />
@@ -100,7 +86,6 @@ const FormComponent = () => {
                 className="input is-success"
                 type="text"
                 name="phone"
-                value={formData.father.phone}
                 onChange={handleChange}
                 required
               />
@@ -114,7 +99,6 @@ const FormComponent = () => {
                 className="input is-success"
                 type="email"
                 name="email"
-                value={formData.father.email}
                 onChange={handleChange}
                 required
               />
@@ -122,13 +106,26 @@ const FormComponent = () => {
           </div>
 
           <div className="field">
+            <label className="label">Contraseña:</label>
+            <div className="control">
+              <input
+                className="input is-success"
+                type="password"
+                name="password"
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+
+          {/* Second column */}
+          <div className="field">
             <label className="label">Dirección:</label>
             <div className="control">
               <input
                 className="input is-success"
                 type="text"
                 name="address.street"
-                value={formData.father.address.street}
                 onChange={handleChange}
                 required
               />
@@ -142,7 +139,6 @@ const FormComponent = () => {
                 className="input is-success"
                 type="text"
                 name="address.neighbourhood"
-                value={formData.father.address.neighbourhood}
                 onChange={handleChange}
               />
             </div>
@@ -155,12 +151,12 @@ const FormComponent = () => {
                 className="input is-success"
                 type="text"
                 name="address.zip"
-                value={formData.father.address.zip}
                 onChange={handleChange}
               />
             </div>
           </div>
 
+          {/* Third column */}
           <div className="field">
             <label className="label">Nombre del Hijo:</label>
             <div className="control">
@@ -168,7 +164,6 @@ const FormComponent = () => {
                 className="input is-success"
                 type="text"
                 name="child.name"
-                value={formData.father.child.name}
                 onChange={handleChange}
               />
             </div>
@@ -181,7 +176,6 @@ const FormComponent = () => {
                 className="input is-success"
                 type="text"
                 name="child.phone"
-                value={formData.father.child.phone}
                 onChange={handleChange}
               />
             </div>
@@ -194,7 +188,6 @@ const FormComponent = () => {
                 className="input is-success"
                 type="text"
                 name="bankaccount.numbercard"
-                value={formData.father.bankaccount.numbercard}
                 onChange={handleChange}
                 required
               />
@@ -208,7 +201,6 @@ const FormComponent = () => {
                 className="input is-success"
                 type="text"
                 name="bankaccount.expdate"
-                value={formData.father.bankaccount.expdate}
                 onChange={handleChange}
                 required
               />
@@ -222,7 +214,6 @@ const FormComponent = () => {
                 className="input is-success"
                 type="text"
                 name="bankaccount.ccv"
-                value={formData.father.bankaccount.ccv}
                 onChange={handleChange}
                 required
               />
