@@ -25,7 +25,7 @@ const NavBar = () => {
     >
       <div className="navbar-brand">
         <Link className="navbar-item has-text-weight-semibold" to="/">
-          Mercado Kids
+          Mercado Kids By Manuel Espinosa
         </Link>
         <Link
           role="button"
